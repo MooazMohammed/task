@@ -1,0 +1,33 @@
+name: task
+description: "e-RAMO Real Estate App"
+publish_to: 'none'
+version: 1.0.0+1
+
+environment:
+  sdk: ^3.9.2
+
+dependencies:
+  flutter:
+    sdk: flutter
+  flutter_localizations:
+    sdk: flutter
+  cupertino_icons: ^1.0.8
+  flutter_svg: ^2.0.10+1
+  smooth_page_indicator: ^1.2.0+3
+  cached_network_image: ^3.4.1
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^5.0.0
+
+flutter:
+  uses-material-design: true
+
+  assets:
+    # Declare only the specific files we actually use.
+    # Do NOT declare assets/icons/ as a folder — it contains files with
+    # Arabic-encoded names that cause PathNotFoundException on some platforms.
+    - assets/logo/logo.png
+    - assets/logo/logo.svg
+    - assets/logo/logo-white.svg

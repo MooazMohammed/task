@@ -1,0 +1,288 @@
+import 'app_models.dart';
+import 'app_assets.dart';
+
+class AppData {
+  AppData._();
+
+  static final List<PropertyModel> featuredProperties = [
+    PropertyModel(
+      id: '1',
+      title: 'شقة سكنية للبيع تشطيب سوبر ...',
+      location: 'الشيخ زايد، الجيزة',
+      price: 4000000,
+      bedrooms: 10,
+      bathrooms: 5,
+      area: 8725,
+      imageUrl: AppAssets.img1,
+      isFeatured: true,
+      type: 'شقة',
+      transactionType: 'للبيع',
+      agentName: 'بواسطة',
+      daysAgo: 4,
+    ),
+    PropertyModel(
+      id: '2',
+      title: 'شقة سكنية للإيجار تشطيب سوبر ...',
+      location: 'الشيخ زايد، الجيزة',
+      price: 4000,
+      bedrooms: 10,
+      bathrooms: 5,
+      area: 8725,
+      imageUrl: AppAssets.img2,
+      isFeatured: true,
+      isFavorite: false,
+      type: 'شقة',
+      transactionType: 'للإيجار',
+      agentName: 'بواسطة',
+      daysAgo: 4,
+    ),
+    PropertyModel(
+      id: '3',
+      title: 'فيلا مستقلة بالشيخ زايد ...',
+      location: 'الشيخ زايد، الجيزة',
+      price: 12500000,
+      bedrooms: 5,
+      bathrooms: 4,
+      area: 450,
+      imageUrl: AppAssets.img3,
+      isFeatured: true,
+      type: 'فيلا',
+      transactionType: 'للبيع',
+      agentName: 'بواسطة',
+      daysAgo: 4,
+    ),
+  ];
+
+  static final List<ProjectModel> topProjects = [
+    ProjectModel(
+      id: 'p1',
+      name: 'كمبوند الشيخ زايد',
+      developer: 'تطوير مصر',
+      location: 'الشيخ زايد، الجيزة',
+      imageUrl: AppAssets.img2,
+      discountPercent: 25,
+    ),
+    ProjectModel(
+      id: 'p2',
+      name: 'ميفيدا',
+      developer: 'إعمار مصر',
+      location: 'التجمع الخامس',
+      imageUrl: AppAssets.img1,
+      discountPercent: 15,
+    ),
+    ProjectModel(
+      id: 'p3',
+      name: 'الرحاب',
+      developer: 'مدينة نصر للإسكان',
+      location: 'القاهرة الجديدة',
+      imageUrl: AppAssets.img5,
+    ),
+  ];
+
+  static final List<CityModel> cities = [
+    CityModel(name: 'الجيزة',          imageUrl: AppAssets.city2, propertyCount: 1250),
+    CityModel(name: 'القاهرة',         imageUrl: AppAssets.city1, propertyCount: 3450),
+    CityModel(name: 'الإسكندرية',      imageUrl: AppAssets.city3, propertyCount: 870),
+    CityModel(name: 'القاهرة الجديدة', imageUrl: AppAssets.city4, propertyCount: 620),
+  ];
+
+  static final List<PropertyModel> latestApartments = [
+    PropertyModel(
+      id: 'a1',
+      title: 'شقة سكنية للبيع تشطيب سوبر',
+      location: 'الشيخ زايد، الجيزة',
+      price: 4000000,
+      bedrooms: 5,
+      bathrooms: 5,
+      area: 8725,
+      imageUrl: AppAssets.img1,
+      type: 'شقة',
+      agentName: 'وكالة',
+      daysAgo: 4,
+    ),
+    PropertyModel(
+      id: 'a2',
+      title: 'شقة بمدينة نصر',
+      location: 'مدينة نصر، القاهرة',
+      price: 2100000,
+      bedrooms: 2,
+      bathrooms: 1,
+      area: 110,
+      imageUrl: AppAssets.img3,
+      isNew: true,
+      type: 'شقة',
+      agentName: 'وكالة النيل',
+      daysAgo: 2,
+    ),
+    PropertyModel(
+      id: 'a3',
+      title: 'شقة بالمهندسين',
+      location: 'المهندسين، الجيزة',
+      price: 3400000,
+      bedrooms: 3,
+      bathrooms: 2,
+      area: 155,
+      imageUrl: AppAssets.img5,
+      type: 'شقة',
+      agentName: 'وكالة القاهرة',
+      daysAgo: 6,
+    ),
+    PropertyModel(
+      id: 'a4',
+      title: 'شقة بالتجمع الخامس',
+      location: 'التجمع الخامس، القاهرة',
+      price: 5200000,
+      bedrooms: 4,
+      bathrooms: 3,
+      area: 200,
+      imageUrl: AppAssets.img4,
+      type: 'شقة',
+      agentName: 'وكالة الخليج',
+      daysAgo: 3,
+    ),
+  ];
+
+  static final List<PropertyModel> latestVillas = [
+    PropertyModel(
+      id: 'v1',
+      title: 'فيلا مستقلة بالشيخ زايد تشطيب سوبر',
+      location: 'الشيخ زايد، الجيزة',
+      price: 11500000,
+      bedrooms: 5,
+      bathrooms: 4,
+      area: 450,
+      imageUrl: AppAssets.img2,
+      isFeatured: true,
+      type: 'فيلا',
+      agentName: 'تطوير مصر',
+      daysAgo: 5,
+    ),
+    PropertyModel(
+      id: 'v2',
+      title: 'فيلا بالرحاب',
+      location: 'الرحاب، القاهرة الجديدة',
+      price: 8900000,
+      bedrooms: 5,
+      bathrooms: 4,
+      area: 500,
+      imageUrl: AppAssets.img4,
+      type: 'فيلا',
+      agentName: 'مدينة نصر للإسكان',
+      daysAgo: 8,
+    ),
+    PropertyModel(
+      id: 'v3',
+      title: 'فيلا توين هاوس ماراسي',
+      location: 'الساحل الشمالي، مطروح',
+      price: 15000000,
+      bedrooms: 4,
+      bathrooms: 3,
+      area: 380,
+      imageUrl: AppAssets.img5,
+      isNew: true,
+      type: 'فيلا',
+      agentName: 'إعمار مصر',
+      daysAgo: 1,
+    ),
+  ];
+
+  static final List<PropertyModel> latestDuplexes = [
+    PropertyModel(
+      id: 'd1',
+      title: 'دوبلكس للبيع تشطيب سوبر لوكس',
+      location: 'الشيخ زايد، الجيزة',
+      price: 4000000,
+      bedrooms: 5,
+      bathrooms: 5,
+      area: 8725,
+      imageUrl: AppAssets.img3,
+      type: 'دوبلكس',
+      agentName: 'وكالة',
+      daysAgo: 4,
+    ),
+    PropertyModel(
+      id: 'd2',
+      title: 'دوبلكس بمدينة نصر',
+      location: 'مدينة نصر، القاهرة',
+      price: 3800000,
+      bedrooms: 4,
+      bathrooms: 3,
+      area: 250,
+      imageUrl: AppAssets.img4,
+      isNew: true,
+      type: 'دوبلكس',
+      agentName: 'وكالة النيل',
+      daysAgo: 3,
+    ),
+  ];
+
+  static final List<PropertyModel> latestChalets = [
+    PropertyModel(
+      id: 'c1',
+      title: 'شاليه بالساحل الشمالي',
+      location: 'الساحل الشمالي، مطروح',
+      price: 2500000,
+      bedrooms: 3,
+      bathrooms: 2,
+      area: 130,
+      imageUrl: AppAssets.img5,
+      type: 'شاليه',
+      agentName: 'إعمار مصر',
+      daysAgo: 2,
+    ),
+    PropertyModel(
+      id: 'c2',
+      title: 'شاليه ماريوت ساحلي',
+      location: 'رأس الحكمة، مطروح',
+      price: 3200000,
+      bedrooms: 3,
+      bathrooms: 2,
+      area: 160,
+      imageUrl: AppAssets.img2,
+      isFeatured: true,
+      type: 'شاليه',
+      agentName: 'تطوير مصر',
+      daysAgo: 5,
+    ),
+  ];
+
+  static final List<Map<String, String>> bannerSlides = [
+    {
+      'title': 'منزل أحلامك الآن متوفر',
+      'subtitle': 'مشروع كمبوند الشيخ زايد أكثر من 200 شقة ومحل في انتظارك',
+      'buttonText': 'تواصل الآن',
+      'imageUrl': AppAssets.img1,
+    },
+    {
+      'title': 'أفضل المشاريع العقارية',
+      'subtitle': 'بأسعار تنافسية وتسهيلات في السداد',
+      'buttonText': 'تواصل الآن',
+      'imageUrl': AppAssets.img2,
+    },
+    {
+      'title': 'فيلات وشقق فاخرة',
+      'subtitle': 'في أرقى المناطق بمصر',
+      'buttonText': 'تواصل الآن',
+      'imageUrl': AppAssets.img5,
+    },
+  ];
+
+  static final List<NewsModel> latestNews = [
+    NewsModel(
+      id: 'n1',
+      title: 'أحدث سوق إيجي',
+      description:
+          'هذا النص هو مثال لنص يستبدل في نفس المساحة، لقد تم توليد هذا النص من مولد النص العربي.',
+      imageUrl: AppAssets.news1,
+      date: 'منذ يومين',
+    ),
+    NewsModel(
+      id: 'n2',
+      title: 'أحدث سوق إيجي',
+      description:
+          'هذا النص هو مثال لنص يستبدل في نفس المساحة، لقد تم توليد هذا النص من مولد النص العربي.',
+      imageUrl: AppAssets.news2,
+      date: 'منذ 3 أيام',
+    ),
+  ];
+}
