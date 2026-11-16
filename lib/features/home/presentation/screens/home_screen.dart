@@ -25,9 +25,76 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   int _featuredFilter = 0; // 0: الكل, 1: للبيع, 2: للإيجار
+  String _selectedCity = 'القاهرة';
 
   void _openMore() {
     _scaffoldKey.currentState?.openEndDrawer();
+  }
+
+  void _showCityPicker() {
+    showModalBottomSheet(
+      context: context,
+      backgroundColor: Colors.white,
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
+      ),
+      builder: (context) {
+        final cities = [
+          'القاهرة',
+          'الجيزة',
+          'الإسكندرية',
+          'الشيخ زايد',
+          'التجمع الخامس',
+          'الساحل الشمالي',
+        ];
+        return SafeArea(
+          child: Padding(
+            padding: const EdgeInsets.symmetric(vertical: 16),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Padding(
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
+                  child: Text(
+                    'اختر المدينة',
+                    style: AppTextStyles.h3.copyWith(
+                      fontWeight: FontWeight.bold,
+                      color: AppColors.textPrimary,
+                    ),
+                  ),
+                ),
+                const Divider(),
+                ...cities.map(
+                  (city) => ListTile(
+                    title: Text(
+                      city,
+                      style: AppTextStyles.body1.copyWith(
+                        fontWeight: _selectedCity == city
+                            ? FontWeight.bold
+                            : FontWeight.normal,
+                        color: _selectedCity == city
+                            ? AppColors.primary
+                            : AppColors.textPrimary,
+                      ),
+                    ),
+                    trailing: _selectedCity == city
+                        ? const Icon(Icons.check_circle_rounded,
+                            color: AppColors.primary)
+                        : null,
+                    onTap: () {
+                      setState(() => _selectedCity = city);
+                      Navigator.pop(context);
+                    },
+                  ),
+                ),
+              ],
+            ),
+          ),
+        );
+      },
+    );
   }
 
   List get _filteredFeaturedProperties {
@@ -177,13 +244,27 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
-  // ── Top Header: Centered Logo + Row (Bell on Right & Menu on Left) + Search Bar ──
+  // ── Top Header: Centered Logo + Row (Location on Right & 3 Action Icons on Left) + Search Bar ──
   Widget _buildTopHeader() {
     return Container(
-      color: Colors.white,
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: const BorderRadius.only(
+          bottomLeft: Radius.circular(24),
+          bottomRight: Radius.circular(24),
+        ),
+        boxShadow: [
+          BoxShadow(
+            color: const Color(0x0F000000),
+            offset: const Offset(0, 4),
+            blurRadius: 12,
+            spreadRadius: 0,
+          ),
+        ],
+      ),
       padding: const EdgeInsets.only(
         top: 8,
-        bottom: 12,
+        bottom: 16,
       ),
       child: Column(
         children: [
@@ -202,28 +283,102 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
             ),
           ),
-          const SizedBox(height: 10),
+          const SizedBox(height: 12),
 
-          // Row: Notification Bell (Right/Start) ─── 'المزيد' Menu (Left/End)
+          // Row: Location on Right (Start in RTL) ─── 3 Action Icons on Left (End in RTL)
           Padding(
             padding: const EdgeInsets.symmetric(
               horizontal: AppSpacing.screenHorizontal,
             ),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                // Notification Bell on right with bottom badge
-                _NotificationBell(badge: 2, onTap: () {}),
+                // Right side: Location Dropdown
+                _buildLocationDropdown(),
 
-                // 'المزيد' 3-lines menu button on left
-                _MoreMenuButton(onTap: _openMore),
+                // Left side: The 3 Action Icons (More Menu, Bell, Chat)
+                _buildActionIconsGroup(),
               ],
             ),
           ),
-          const SizedBox(height: 10),
+          const SizedBox(height: 14),
 
           // Search Bar integrated on white background
           HomeSearchBar(onTap: () {}),
+        ],
+      ),
+    );
+  }
+
+  // ── Location selector (Right side in RTL) ──
+  Widget _buildLocationDropdown() {
+    return InkWell(
+      onTap: _showCityPicker,
+      borderRadius: BorderRadius.circular(8),
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 4, vertical: 4),
+        child: Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Text(
+              _selectedCity,
+              style: const TextStyle(
+                fontSize: 18,
+                fontWeight: FontWeight.w700,
+                color: AppColors.textPrimary,
+              ),
+            ),
+            const SizedBox(width: 4),
+            const Icon(
+              Icons.keyboard_arrow_down_rounded,
+              color: AppColors.textPrimary,
+              size: 24,
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  // ── Group of 3 Action Icons on Left: [More] [Bell] [Chat] ──
+  Widget _buildActionIconsGroup() {
+    return Directionality(
+      textDirection: TextDirection.ltr,
+      child: Row(
+        mainAxisSize: MainAxisSize.min,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          // 1. More Menu (3 horizontal lines) on the far left
+          _MoreMenuButton(onTap: _openMore),
+          const SizedBox(width: 10),
+
+          // 2. Notifications Bell with badge 2 in the middle
+          _NotificationBell(
+            badge: 2,
+            onTap: () {
+              ScaffoldMessenger.of(context).showSnackBar(
+                const SnackBar(
+                  content: Text('لديك إشعاران جديدان', textAlign: TextAlign.right),
+                  duration: Duration(seconds: 2),
+                ),
+              );
+            },
+          ),
+          const SizedBox(width: 10),
+
+          // 3. Chat / Messages with badge 5
+          _ChatButton(
+            badge: 5,
+            onTap: () {
+              ScaffoldMessenger.of(context).showSnackBar(
+                const SnackBar(
+                  content: Text('لديك 5 رسائل جديدة', textAlign: TextAlign.right),
+                  duration: Duration(seconds: 2),
+                ),
+              );
+            },
+          ),
         ],
       ),
     );
@@ -254,7 +409,7 @@ class _HomeScreenState extends State<HomeScreen> {
   // ── City list horizontal scroll ──────────────────────────────────
   Widget _buildCityList() {
     return SizedBox(
-      height: 110,
+      height: 215,
       child: ListView.separated(
         scrollDirection: Axis.horizontal,
         physics: const BouncingScrollPhysics(),
@@ -370,7 +525,7 @@ class _FeaturedSectionHeader extends StatelessWidget {
   }
 }
 
-// ─── Notification Bell with Badge at Bottom ─────────────────────────
+// ─── Notification Bell with Badge ───────────────────────────────────
 class _NotificationBell extends StatelessWidget {
   final int badge;
   final VoidCallback? onTap;
@@ -381,34 +536,107 @@ class _NotificationBell extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: onTap,
+      behavior: HitTestBehavior.opaque,
       child: SizedBox(
         width: 38,
         height: 38,
         child: Stack(
           alignment: Alignment.center,
+          clipBehavior: Clip.none,
           children: [
             const Icon(
               Icons.notifications_none_rounded,
-              size: 25,
+              size: 28,
               color: AppColors.textPrimary,
             ),
             if (badge > 0)
               Positioned(
-                bottom: 2, // Badge positioned at bottom
-                right: 4,
+                bottom: 2,
+                right: 2,
                 child: Container(
-                  width: 14,
-                  height: 14,
+                  padding: const EdgeInsets.all(1.5),
                   decoration: const BoxDecoration(
-                    color: AppColors.badgeRed,
+                    color: Colors.white,
                     shape: BoxShape.circle,
                   ),
-                  child: Center(
-                    child: Text(
-                      '$badge',
-                      style: AppTextStyles.badge.copyWith(
-                        fontSize: 8,
-                        fontWeight: FontWeight.w700,
+                  child: Container(
+                    width: 14,
+                    height: 14,
+                    decoration: const BoxDecoration(
+                      color: AppColors.badgeRed,
+                      shape: BoxShape.circle,
+                    ),
+                    child: Center(
+                      child: Text(
+                        '$badge',
+                        style: const TextStyle(
+                          color: Colors.white,
+                          fontSize: 9,
+                          fontWeight: FontWeight.w700,
+                          height: 1,
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+// ─── Chat / Messages Button with Badge ──────────────────────────────
+class _ChatButton extends StatelessWidget {
+  final int badge;
+  final VoidCallback? onTap;
+
+  const _ChatButton({this.badge = 5, this.onTap});
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: onTap,
+      behavior: HitTestBehavior.opaque,
+      child: SizedBox(
+        width: 38,
+        height: 38,
+        child: Stack(
+          alignment: Alignment.center,
+          clipBehavior: Clip.none,
+          children: [
+            const Icon(
+              Icons.chat_bubble_outline_rounded,
+              size: 26,
+              color: AppColors.textPrimary,
+            ),
+            if (badge > 0)
+              Positioned(
+                bottom: 2,
+                right: 2,
+                child: Container(
+                  padding: const EdgeInsets.all(1.5),
+                  decoration: const BoxDecoration(
+                    color: Colors.white,
+                    shape: BoxShape.circle,
+                  ),
+                  child: Container(
+                    width: 14,
+                    height: 14,
+                    decoration: const BoxDecoration(
+                      color: AppColors.badgeRed,
+                      shape: BoxShape.circle,
+                    ),
+                    child: Center(
+                      child: Text(
+                        '$badge',
+                        style: const TextStyle(
+                          color: Colors.white,
+                          fontSize: 9,
+                          fontWeight: FontWeight.w700,
+                          height: 1,
+                        ),
                       ),
                     ),
                   ),
@@ -431,40 +659,36 @@ class _MoreMenuButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: onTap,
-      child: Container(
+      behavior: HitTestBehavior.opaque,
+      child: SizedBox(
         width: 38,
         height: 38,
-        decoration: BoxDecoration(
-          color: AppColors.surface,
-          borderRadius: BorderRadius.circular(8),
-          border: Border.all(color: AppColors.divider, width: 1.2),
-        ),
         child: Center(
           child: Column(
             mainAxisSize: MainAxisSize.min,
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Container(
-                width: 16,
-                height: 2,
+                width: 22,
+                height: 2.5,
                 decoration: BoxDecoration(
                   color: AppColors.textPrimary,
                   borderRadius: BorderRadius.circular(2),
                 ),
               ),
-              const SizedBox(height: 3),
+              const SizedBox(height: 4.5),
               Container(
-                width: 16,
-                height: 2,
+                width: 22,
+                height: 2.5,
                 decoration: BoxDecoration(
                   color: AppColors.textPrimary,
                   borderRadius: BorderRadius.circular(2),
                 ),
               ),
-              const SizedBox(height: 3),
+              const SizedBox(height: 4.5),
               Container(
-                width: 16,
-                height: 2,
+                width: 22,
+                height: 2.5,
                 decoration: BoxDecoration(
                   color: AppColors.textPrimary,
                   borderRadius: BorderRadius.circular(2),
@@ -486,7 +710,7 @@ class _HorizontalPropertyList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 275,
+      height: 288,
       child: ListView.separated(
         scrollDirection: Axis.horizontal,
         physics: const BouncingScrollPhysics(),

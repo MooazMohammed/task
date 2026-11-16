@@ -149,7 +149,7 @@ class _PropertyCardState extends State<PropertyCard> {
   // ── Property Info ────────────────────────────────────────────────
   Widget _buildInfo() {
     return Padding(
-      padding: const EdgeInsets.all(10),
+      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 8),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisSize: MainAxisSize.min,
@@ -186,7 +186,7 @@ class _PropertyCardState extends State<PropertyCard> {
               ),
             ],
           ),
-          const SizedBox(height: 4),
+          const SizedBox(height: 3),
 
           // Row 2: Title (Right aligned)
           Text(
@@ -199,7 +199,7 @@ class _PropertyCardState extends State<PropertyCard> {
             maxLines: 1,
             overflow: TextOverflow.ellipsis,
           ),
-          const SizedBox(height: 6),
+          const SizedBox(height: 5),
 
           // Row 3: Specs in exact order: 10 Rooms (Right) | 5 Baths (Middle) | 8.725sqft (Left)
           Row(
@@ -211,7 +211,7 @@ class _PropertyCardState extends State<PropertyCard> {
               _buildSpecItem('8.725sqft', Icons.straighten_outlined),
             ],
           ),
-          const SizedBox(height: 8),
+          const SizedBox(height: 6),
 
           // Row 4: Bottom row: Location & Date on Right, Agency on Left
           Row(
@@ -238,7 +238,7 @@ class _PropertyCardState extends State<PropertyCard> {
                         ),
                       ],
                     ),
-                    const SizedBox(height: 3),
+                    const SizedBox(height: 2),
                     Row(
                       children: [
                         const Icon(Icons.access_time_rounded,

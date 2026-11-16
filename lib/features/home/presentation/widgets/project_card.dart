@@ -27,7 +27,7 @@ class ProjectCard extends StatefulWidget {
 }
 
 class _ProjectCardState extends State<ProjectCard> {
-  bool _isFav = false;
+  bool _isFav = true;
 
   @override
   Widget build(BuildContext context) {
@@ -76,29 +76,36 @@ class _ProjectCardState extends State<ProjectCard> {
               ),
             ),
 
-            // Green 'مشروع' badge pinned at bottom
+            // Green 'مشروع' pill badge on the right, slightly up from bottom
             Positioned(
-              bottom: 0,
-              left: 0,
+              bottom: 8,
+              right: 10,
               child: Container(
                 padding:
-                    const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
-                decoration: const BoxDecoration(
-                  color: Color(0xFF00C853), // Green
-                  borderRadius:
-                      BorderRadius.only(topRight: Radius.circular(6)),
+                    const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+                decoration: BoxDecoration(
+                  color: const Color(0xFF22A45D),
+                  borderRadius: BorderRadius.circular(16),
+                  boxShadow: const [
+                    BoxShadow(
+                      color: Color(0x33000000),
+                      blurRadius: 4,
+                      offset: Offset(0, 2),
+                    ),
+                  ],
                 ),
                 child: Row(
                   mainAxisSize: MainAxisSize.min,
                   children: const [
-                    Icon(Icons.domain, size: 12, color: Colors.white),
-                    SizedBox(width: 3),
+                    Icon(Icons.domain_rounded, size: 14, color: Colors.white),
+                    SizedBox(width: 4),
                     Text(
                       'مشروع',
                       style: TextStyle(
-                        fontSize: 10,
+                        fontSize: 11,
                         fontWeight: FontWeight.w700,
                         color: Colors.white,
+                        fontFamily: 'Cairo',
                       ),
                     ),
                   ],
@@ -258,6 +265,16 @@ class _ProjectCardState extends State<ProjectCard> {
                 letterSpacing: -0.5,
               ),
             ),
+          ),
+        ),
+        const SizedBox(height: 1),
+        const Text(
+          'GOLD SQUARE',
+          style: TextStyle(
+            color: Color(0xFFE53935),
+            fontSize: 5.5,
+            fontWeight: FontWeight.w700,
+            letterSpacing: -0.2,
           ),
         ),
       ],

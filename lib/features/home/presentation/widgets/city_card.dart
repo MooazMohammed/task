@@ -1,73 +1,129 @@
 import 'package:flutter/material.dart';
 import 'package:task/core/theme/app_colors.dart';
-import 'package:task/core/theme/app_text_styles.dart';
-import 'package:task/core/theme/app_spacing.dart';
 import 'package:task/core/constants/app_models.dart';
 
 class CityCard extends StatelessWidget {
   final CityModel city;
   final VoidCallback? onTap;
+  final double width;
+  final double height;
 
-  const CityCard({super.key, required this.city, this.onTap});
+  const CityCard({
+    super.key,
+    required this.city,
+    this.onTap,
+    this.width = 145,
+    this.height = 195,
+  });
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: onTap,
       child: Container(
-        width: 130,
-        height: 100,
+        width: width,
+        height: height,
         decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(AppSpacing.cardRadius),
-          boxShadow: [
+          borderRadius: BorderRadius.circular(18),
+          boxShadow: const [
             BoxShadow(
               color: Color(0x1F000000),
-              blurRadius: 8,
-              offset: Offset(0, 3),
+              blurRadius: 10,
+              offset: Offset(0, 4),
             ),
           ],
         ),
         child: ClipRRect(
-          borderRadius: BorderRadius.circular(AppSpacing.cardRadius),
+          borderRadius: BorderRadius.circular(18),
           child: Stack(
             fit: StackFit.expand,
             children: [
+              // Background city image
               Image.network(
                 city.imageUrl,
                 fit: BoxFit.cover,
                 errorBuilder: (_, __, ___) =>
                     Container(color: AppColors.primary),
               ),
-              // FIX: gradient overlay so text is ALWAYS readable
-              const DecoratedBox(
-                decoration: BoxDecoration(
+
+              // Gradient overlay for contrast
+              Container(
+                decoration: const BoxDecoration(
                   gradient: LinearGradient(
                     begin: Alignment.topCenter,
                     end: Alignment.bottomCenter,
-                    colors: [Colors.transparent, Color(0xCC000000)],
-                    stops: [0.4, 1.0],
+                    colors: [
+                      Color(0x33000000),
+                      Color(0x4D000000),
+                      Color(0xCC000000),
+                    ],
+                    stops: [0.0, 0.45, 1.0],
                   ),
                 ),
               ),
+
+              // City Name centered in the middle of the card
+              Center(
+                child: Text(
+                  city.name,
+                  textAlign: TextAlign.center,
+                  style: const TextStyle(
+                    color: Colors.white,
+                    fontSize: 22,
+                    fontWeight: FontWeight.w800,
+                    fontFamily: 'Cairo',
+                    letterSpacing: 0.5,
+                    shadows: [
+                      Shadow(
+                        color: Color(0x80000000),
+                        offset: Offset(0, 2),
+                        blurRadius: 4,
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+
+              // Bottom counts: "عقارات للبيع : 505" & "عقارات للإيجار : 1002"
               Positioned(
-                bottom: 10,
-                right: 10,
-                left: 10,
+                bottom: 12,
+                right: 12,
+                left: 12,
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisSize: MainAxisSize.min,
                   children: [
                     Text(
-                      city.name,
-                      style: AppTextStyles.h3.copyWith(
+                      'عقارات للبيع : ${city.forSaleCount}',
+                      style: const TextStyle(
                         color: Colors.white,
-                        fontSize: 13,
+                        fontSize: 11.5,
+                        fontWeight: FontWeight.w600,
+                        fontFamily: 'Cairo',
+                        shadows: [
+                          Shadow(
+                            color: Color(0x99000000),
+                            offset: Offset(0, 1),
+                            blurRadius: 2,
+                          ),
+                        ],
                       ),
                     ),
+                    const SizedBox(height: 3),
                     Text(
-                      '${city.propertyCount} عقار',
-                      style: AppTextStyles.caption.copyWith(
-                        color: Color(0xD9FFFFFF),
+                      'عقارات للإيجار : ${city.forRentCount}',
+                      style: const TextStyle(
+                        color: Colors.white,
+                        fontSize: 11.5,
+                        fontWeight: FontWeight.w600,
+                        fontFamily: 'Cairo',
+                        shadows: [
+                          Shadow(
+                            color: Color(0x99000000),
+                            offset: Offset(0, 1),
+                            blurRadius: 2,
+                          ),
+                        ],
                       ),
                     ),
                   ],

@@ -20,22 +20,22 @@ class HomeSearchBar extends StatelessWidget {
           height: 48,
           decoration: BoxDecoration(
             color: const Color(0xFFF5F6F8),
-            borderRadius: BorderRadius.circular(12),
+            borderRadius: BorderRadius.circular(14),
             border: Border.all(color: const Color(0xFFE5E7EB), width: 1),
           ),
-          padding: const EdgeInsets.symmetric(horizontal: 14),
+          padding: const EdgeInsets.symmetric(horizontal: 16),
           child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Expanded(
-                child: Text(
-                  AppStrings.searchHint, // 'كيف يمكننا مساعدتك'
-                  style: AppTextStyles.body2.copyWith(
-                    color: const Color(0xFF9E9E9E),
-                    fontSize: 13,
-                    fontWeight: FontWeight.w400,
-                  ),
+              Text(
+                AppStrings.searchHint, // 'كيف يمكننا مساعدتك'
+                style: AppTextStyles.body2.copyWith(
+                  color: const Color(0xFF9E9E9E),
+                  fontSize: 14,
+                  fontWeight: FontWeight.w400,
                 ),
               ),
+              const SizedBox(width: 8),
               const Icon(
                 Icons.search_rounded,
                 color: Color(0xFF9E9E9E),
