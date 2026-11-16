@@ -291,6 +291,33 @@ class AppData {
     },
   ];
 
+  static final List<Map<String, String>> officeBannerSlides = [
+    {
+      'title': 'مكتبك لازم يكون انيق',
+      'subtitle': 'مشروع كمبوند الشيخ زايد اكثر من 200 مكتب ومحل في انتظارك',
+      'buttonText': 'تواصل الآن',
+      'imageUrl': AppAssets.img3,
+    },
+    {
+      'title': 'مساحات تجارية وإدارية',
+      'subtitle': 'بأفضل المواقع وأنسب أنظمة السداد',
+      'buttonText': 'تواصل الآن',
+      'imageUrl': AppAssets.img1,
+    },
+    {
+      'title': 'مقرات شركات مجهزة بالكامل',
+      'subtitle': 'أحدث المكاتب العصرية في قلب القاهرة',
+      'buttonText': 'تواصل الآن',
+      'imageUrl': AppAssets.img2,
+    },
+    {
+      'title': 'فرص استثمارية مميزة',
+      'subtitle': 'احجز مكتبك أو محلك التجاري اليوم',
+      'buttonText': 'تواصل الآن',
+      'imageUrl': AppAssets.img4,
+    },
+  ];
+
   static final List<NewsModel> latestNews = [
     NewsModel(
       id: 'n1',

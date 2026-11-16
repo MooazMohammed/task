@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:task/core/theme/app_colors.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:task/core/constants/app_models.dart';
 
 class CityCard extends StatelessWidget {
@@ -38,12 +38,27 @@ class CityCard extends StatelessWidget {
           child: Stack(
             fit: StackFit.expand,
             children: [
-              // Background city image
-              Image.network(
-                city.imageUrl,
+              // Background city image with cached image loader
+              CachedNetworkImage(
+                imageUrl: city.imageUrl,
                 fit: BoxFit.cover,
-                errorBuilder: (_, __, ___) =>
-                    Container(color: AppColors.primary),
+                placeholder: (_, __) => Container(
+                  color: const Color(0xFF1E293B),
+                  child: const Center(
+                    child: SizedBox(
+                      width: 20,
+                      height: 20,
+                      child: CircularProgressIndicator(
+                        strokeWidth: 2,
+                        color: Colors.white38,
+                      ),
+                    ),
+                  ),
+                ),
+                errorWidget: (_, __, ___) => Container(
+                  color: const Color(0xFF1E293B),
+                  child: const Icon(Icons.location_city, color: Colors.white38, size: 36),
+                ),
               ),
 
               // Gradient overlay for contrast

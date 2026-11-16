@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:task/core/theme/app_colors.dart';
-import 'package:task/core/theme/app_text_styles.dart';
 import 'package:task/core/theme/app_spacing.dart';
 import 'package:task/core/constants/app_models.dart';
 import 'package:task/shared/widgets/section_header.dart';
@@ -55,7 +54,7 @@ class _PropertySectionState extends State<PropertySection> {
 
         // ── PageView of full-width cards ────────────────────────
         SizedBox(
-          height: 162,
+          height: 172,
           child: PageView.builder(
             controller: _ctrl,
             reverse: true, // RTL: swipe right→left
@@ -72,20 +71,19 @@ class _PropertySectionState extends State<PropertySection> {
           ),
         ),
 
-        // ── Page indicator dots (RTL-aware) ───────────────────────
+        // ── Page indicator dots (RTL-aware circular dots matching Image 2) ──
         const SizedBox(height: 10),
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: List.generate(widget.items.length, (i) {
             final active = i == _currentPage;
-            return AnimatedContainer(
-              duration: const Duration(milliseconds: 200),
-              margin: const EdgeInsets.symmetric(horizontal: 2.5),
-              width: active ? 16 : 6,
-              height: 6,
+            return Container(
+              margin: const EdgeInsets.symmetric(horizontal: 3),
+              width: 7,
+              height: 7,
               decoration: BoxDecoration(
-                color: active ? AppColors.primary : AppColors.divider,
-                borderRadius: BorderRadius.circular(3),
+                color: active ? const Color(0xFF02658B) : const Color(0xFFD1D5DB),
+                shape: BoxShape.circle,
               ),
             );
           }),
@@ -101,28 +99,33 @@ class _PropertySectionState extends State<PropertySection> {
       padding: const EdgeInsets.symmetric(
           horizontal: AppSpacing.screenHorizontal, vertical: 4),
       child: Row(
-        // RTL: mainAxisAlignment.end pushes to the right side
-        mainAxisAlignment: MainAxisAlignment.end,
+        mainAxisAlignment: MainAxisAlignment.start, // In RTL, start is on the RIGHT
         children: List.generate(_filters.length * 2 - 1, (i) {
           if (i.isOdd) {
             // Divider between tabs
-            return Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 4),
-              child: Text('|',
-                  style: AppTextStyles.caption
-                      .copyWith(color: AppColors.textDisabled)),
+            return const Padding(
+              padding: EdgeInsets.symmetric(horizontal: 6),
+              child: Text(
+                '|',
+                style: TextStyle(
+                  color: Color(0xFFD1D5DB),
+                  fontSize: 13,
+                ),
+              ),
             );
           }
           final idx = i ~/ 2;
           final selected = _filterIdx == idx;
           return GestureDetector(
             onTap: () => setState(() => _filterIdx = idx),
+            behavior: HitTestBehavior.opaque,
             child: Text(
               _filters[idx],
-              style: AppTextStyles.caption.copyWith(
-                color: selected ? AppColors.primary : AppColors.textSecondary,
-                fontWeight:
-                    selected ? FontWeight.w700 : FontWeight.w400,
+              style: TextStyle(
+                fontSize: 13,
+                color: selected ? AppColors.textPrimary : const Color(0xFF6B7280),
+                fontWeight: selected ? FontWeight.w800 : FontWeight.w500,
+                fontFamily: 'Cairo',
               ),
             ),
           );

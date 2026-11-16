@@ -120,7 +120,7 @@ class _ProjectCardState extends State<ProjectCard> {
 
   Widget _buildInfo() {
     return Padding(
-      padding: const EdgeInsets.all(10),
+      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 8),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisSize: MainAxisSize.min,
@@ -169,7 +169,7 @@ class _ProjectCardState extends State<ProjectCard> {
             maxLines: 1,
             overflow: TextOverflow.ellipsis,
           ),
-          const SizedBox(height: 10),
+          const SizedBox(height: 6),
 
           // Row 3: Location & Date on Right, Agency on Left
           Row(

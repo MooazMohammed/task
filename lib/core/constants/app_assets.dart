@@ -13,10 +13,10 @@ class AppAssets {
   static const String img3  = 'https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?w=600&q=80';
   static const String img4  = 'https://images.unsplash.com/photo-1570129477492-45c003edd2be?w=600&q=80';
   static const String img5  = 'https://images.unsplash.com/photo-1484154218962-a197022b5858?w=600&q=80';
-  static const String city1 = 'https://images.unsplash.com/photo-1572452439269-b25db3fdf3a7?w=400&q=80';
-  static const String city2 = 'https://images.unsplash.com/photo-1559561853-08451507a1cd?w=400&q=80';
-  static const String city3 = 'https://images.unsplash.com/photo-1562813733-b31f71025d54?w=400&q=80';
-  static const String city4 = 'https://images.unsplash.com/photo-1612686635542-2244ed9f8ddc?w=400&q=80';
+  static const String city1 = 'https://images.unsplash.com/photo-1553913861-c0fddf2619ee?w=600&q=80';
+  static const String city2 = 'https://images.unsplash.com/photo-1503177119275-0aa32b3a9368?w=600&q=80';
+  static const String city3 = 'https://images.unsplash.com/photo-1562813733-b31f71025d54?w=600&q=80';
+  static const String city4 = 'https://images.unsplash.com/photo-1612686635542-2244ed9f8ddc?w=600&q=80';
 
   // ── News placeholder ──────────────────────────────────────────
   static const String news1 = 'https://images.unsplash.com/photo-1560520653-9e0e4c89eb11?w=400&q=80';

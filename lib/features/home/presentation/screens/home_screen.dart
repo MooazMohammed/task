@@ -179,6 +179,15 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
             SliverToBoxAdapter(child: _buildCityList()),
 
+            // ── Office Banner under Cities ────────────────────────
+            SliverToBoxAdapter(
+              child: Padding(
+                padding: const EdgeInsets.only(
+                    top: AppSpacing.sectionSpacing, bottom: AppSpacing.xs),
+                child: HeroBanner(slides: AppData.officeBannerSlides),
+              ),
+            ),
+
             // ── أحدث الشقق في مصر ─────────────────────────────────
             SliverToBoxAdapter(
               child: Padding(
@@ -387,7 +396,7 @@ class _HomeScreenState extends State<HomeScreen> {
   // ── Top Projects horizontal list ─────────────────────────────────
   Widget _buildProjectList() {
     return SizedBox(
-      height: 260,
+      height: 280,
       child: ListView.separated(
         scrollDirection: Axis.horizontal,
         physics: const BouncingScrollPhysics(),

@@ -4,16 +4,11 @@ import 'package:task/core/theme/app_text_styles.dart';
 import 'package:task/features/home/presentation/screens/home_screen.dart';
 import 'package:task/features/more/presentation/screens/more_screen.dart';
 
-// ─────────────────────────────────────────────────────────────────────────────
-// Bottom Navigation — matches Figma exactly (RTL, right → left):
-//
-//  [ المطلوبون ]  [ السوق ]  ● الرئيسية ●  [ العروض ]  [ عقاراتي ]
-//     idx=4          idx=3        idx=0        idx=2        idx=1
-//
-// Center FAB = Home (الرئيسية) — elevated circle with home+search icon
-// Uses Scaffold.floatingActionButton + BottomAppBar(CircularNotchedRectangle)
-// ─────────────────────────────────────────────────────────────────────────────
-
+/// Bottom Navigation Bar — matches the exact Figma design in media_1794840903880_b7646b39.jpg:
+/// - Floating rounded white card with soft drop shadow
+/// - Center elevated circle (Home) with house + search icon
+/// - Right to Left order (RTL):
+///   [المطورون]  [السوق]  ●الرئيسية (FAB)●  [العروض]  [عقاراتي]
 class MainNavigation extends StatefulWidget {
   const MainNavigation({super.key});
 
@@ -26,44 +21,11 @@ class _MainNavigationState extends State<MainNavigation> {
 
   // ── Screens ──────────────────────────────────────────────────
   static const _screens = [
-    HomeScreen(),                                              // 0 → FAB الرئيسية
-    MoreScreen(),                                             // 1 → عقاراتي
-    _Placeholder('العروض',      Icons.local_fire_department_rounded), // 2
-    _Placeholder('السوق',       Icons.storefront_rounded),    // 3
-    _Placeholder('المطلوبون',   Icons.people_rounded),        // 4
-  ];
-
-  // ── Side items — 2 on each side of Center Button ────────────
-  // RTL Row renders right → left, so array[0] = FAR RIGHT of bar.
-  //
-  //  array[0]       array[1]    ●Center●    array[2]      array[3]
-  //  المطورون       السوق       الرئيسية    العروض        عقاراتي
-  //  idx=4          idx=3        idx=0      idx=2         idx=1
-  static const _sideItems = [
-    _NavItem(
-      Icons.groups_outlined,
-      Icons.groups_rounded,
-      'المطورون',
-      4,
-    ),
-    _NavItem(
-      Icons.storefront_outlined,
-      Icons.storefront_rounded,
-      'السوق',
-      3,
-    ),
-    _NavItem(
-      Icons.local_fire_department_outlined,
-      Icons.local_fire_department_rounded,
-      'العروض',
-      2,
-    ),
-    _NavItem(
-      Icons.apartment_outlined,
-      Icons.apartment_rounded,
-      'عقاراتي',
-      1,
-    ),
+    HomeScreen(),                                                        // 0 → Home
+    MoreScreen(),                                                       // 1 → عقاراتي
+    _Placeholder('العروض', Icons.local_fire_department_rounded),       // 2
+    _Placeholder('السوق', Icons.storefront_rounded),                   // 3
+    _Placeholder('المطورون', Icons.domain_rounded),                     // 4
   ];
 
   @override
@@ -71,47 +33,163 @@ class _MainNavigationState extends State<MainNavigation> {
     return Scaffold(
       extendBody: true,
       body: IndexedStack(index: _idx, children: _screens),
-      bottomNavigationBar: _buildFloatingBar(),
+      bottomNavigationBar: _buildFloatingBottomBar(),
     );
   }
 
-  // ── Floating Elevated Navigation Bar (Matches Figma Image 2) ──
-  Widget _buildFloatingBar() {
+  // ── Floating Navigation Bar matching Figma ────────────────────
+  Widget _buildFloatingBottomBar() {
     return SafeArea(
       child: Padding(
         padding: const EdgeInsets.fromLTRB(16, 0, 16, 12),
-        child: Container(
-          height: 66,
-          decoration: BoxDecoration(
-            color: Colors.white,
-            borderRadius: BorderRadius.circular(28),
-            boxShadow: const [
-              BoxShadow(
-                color: Color(0x26000000),
-                blurRadius: 20,
-                spreadRadius: 1,
-                offset: Offset(0, 6),
-              ),
-              BoxShadow(
-                color: Color(0x0F000000),
-                blurRadius: 8,
-                spreadRadius: 0,
-                offset: Offset(0, 2),
-              ),
-            ],
-          ),
-          child: Row(
+        child: SizedBox(
+          height: 72,
+          child: Stack(
+            clipBehavior: Clip.none,
+            alignment: Alignment.bottomCenter,
             children: [
-              // RIGHT side (RTL): المطورون, السوق
-              _buildTab(_sideItems[0]),
-              _buildTab(_sideItems[1]),
+              // White rounded container
+              Container(
+                height: 66,
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(28),
+                  boxShadow: const [
+                    BoxShadow(
+                      color: Color(0x18000000),
+                      blurRadius: 18,
+                      spreadRadius: 0,
+                      offset: Offset(0, 4),
+                    ),
+                    BoxShadow(
+                      color: Color(0x0A02658B),
+                      blurRadius: 8,
+                      spreadRadius: 0,
+                      offset: Offset(0, 2),
+                    ),
+                  ],
+                ),
+                child: Row(
+                  children: [
+                    // 1. المطورون (Far Right in RTL)
+                    _buildTabItem(
+                      label: 'المطورون',
+                      screenIdx: 4,
+                      iconBuilder: (active) => Stack(
+                        alignment: Alignment.center,
+                        clipBehavior: Clip.none,
+                        children: [
+                          Icon(
+                            active
+                                ? Icons.apartment_rounded
+                                : Icons.apartment_outlined,
+                            size: 23,
+                            color: active
+                                ? const Color(0xFF02658B)
+                                : const Color(0xFF334155),
+                          ),
+                          Positioned(
+                            right: -3,
+                            bottom: -1,
+                            child: Container(
+                              padding: const EdgeInsets.all(0.5),
+                              decoration: const BoxDecoration(
+                                color: Colors.white,
+                                shape: BoxShape.circle,
+                              ),
+                              child: Icon(
+                                Icons.person,
+                                size: 11,
+                                color: active
+                                    ? const Color(0xFF02658B)
+                                    : const Color(0xFF334155),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
 
-              // CENTER: Floating circular navy button (الرئيسية)
-              _buildCenterButton(),
+                    // 2. السوق (Second from Right)
+                    _buildTabItem(
+                      label: 'السوق',
+                      screenIdx: 3,
+                      iconBuilder: (active) => Icon(
+                        active
+                            ? Icons.storefront_rounded
+                            : Icons.storefront_outlined,
+                        size: 24,
+                        color: active
+                            ? const Color(0xFF02658B)
+                            : const Color(0xFF334155),
+                      ),
+                    ),
 
-              // LEFT side: العروض, عقاراتي
-              _buildTab(_sideItems[2]),
-              _buildTab(_sideItems[3]),
+                    // Gap in center for the elevated home button
+                    const SizedBox(width: 66),
+
+                    // 3. العروض (Second from Left)
+                    _buildTabItem(
+                      label: 'العروض',
+                      screenIdx: 2,
+                      iconBuilder: (active) => Icon(
+                        active
+                            ? Icons.local_fire_department_rounded
+                            : Icons.local_fire_department_outlined,
+                        size: 24,
+                        color: active
+                            ? const Color(0xFF02658B)
+                            : const Color(0xFF334155),
+                      ),
+                    ),
+
+                    // 4. عقاراتي (Far Left in RTL)
+                    _buildTabItem(
+                      label: 'عقاراتي',
+                      screenIdx: 1,
+                      iconBuilder: (active) => Stack(
+                        alignment: Alignment.center,
+                        clipBehavior: Clip.none,
+                        children: [
+                          Icon(
+                            active
+                                ? Icons.apartment_rounded
+                                : Icons.apartment_outlined,
+                            size: 23,
+                            color: active
+                                ? const Color(0xFF02658B)
+                                : const Color(0xFF334155),
+                          ),
+                          Positioned(
+                            right: -3,
+                            bottom: -1,
+                            child: Container(
+                              padding: const EdgeInsets.all(0.5),
+                              decoration: const BoxDecoration(
+                                color: Colors.white,
+                                shape: BoxShape.circle,
+                              ),
+                              child: Icon(
+                                Icons.key_rounded,
+                                size: 10,
+                                color: active
+                                    ? const Color(0xFF02658B)
+                                    : const Color(0xFF334155),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+
+              // Center elevated button (Home) floating on top
+              Positioned(
+                top: -6,
+                child: _buildCenterHomeButton(),
+              ),
             ],
           ),
         ),
@@ -119,65 +197,79 @@ class _MainNavigationState extends State<MainNavigation> {
     );
   }
 
-  // ── Center elevated button (الرئيسية) ─────────────────────────
-  Widget _buildCenterButton() {
-    final active = _idx == 0;
+  // ── Center floating home button ──────────────────────────────
+  Widget _buildCenterHomeButton() {
     return GestureDetector(
       onTap: () => setState(() => _idx = 0),
       child: Container(
-        width: 54,
-        height: 54,
-        margin: const EdgeInsets.symmetric(horizontal: 4),
+        width: 60,
+        height: 60,
         decoration: BoxDecoration(
-          color: AppColors.primary, // Deep Navy Color(0xFF0A2753)
+          color: const Color(0xFF02658B), // Deep teal matching Figma
           shape: BoxShape.circle,
-          boxShadow: [
+          border: Border.all(
+            color: Colors.white,
+            width: 3.5,
+          ),
+          boxShadow: const [
             BoxShadow(
-              color: const Color(0x550A2753),
-              blurRadius: 12,
+              color: Color(0x3B02658B),
+              blurRadius: 14,
               spreadRadius: 1,
-              offset: const Offset(0, 4),
+              offset: Offset(0, 4),
             ),
           ],
         ),
         child: Center(
-          child: _HomeSearchIcon(
-            key: ValueKey(active),
-            active: active,
+          child: Stack(
+            alignment: Alignment.center,
+            children: const [
+              Icon(
+                Icons.home_rounded,
+                color: Colors.white,
+                size: 32,
+              ),
+              Positioned(
+                bottom: 7,
+                child: Icon(
+                  Icons.search_rounded,
+                  color: Color(0xFF02658B),
+                  size: 15,
+                ),
+              ),
+            ],
           ),
         ),
       ),
     );
   }
 
-  // ── Individual side tab ──────────────────────────────────────
-  Widget _buildTab(_NavItem item) {
-    final active = _idx == item.screenIdx;
+  // ── Tab item builder ─────────────────────────────────────────
+  Widget _buildTabItem({
+    required String label,
+    required int screenIdx,
+    required Widget Function(bool active) iconBuilder,
+  }) {
+    final active = _idx == screenIdx;
     return Expanded(
       child: GestureDetector(
         behavior: HitTestBehavior.opaque,
-        onTap: () => setState(() => _idx = item.screenIdx),
+        onTap: () => setState(() => _idx = screenIdx),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            AnimatedSwitcher(
-              duration: const Duration(milliseconds: 180),
-              child: Icon(
-                active ? item.activeIcon : item.icon,
-                key: ValueKey(active),
-                size: 24,
-                color: active ? AppColors.navActive : AppColors.navInactive,
-              ),
-            ),
+            iconBuilder(active),
             const SizedBox(height: 3),
-            AnimatedDefaultTextStyle(
-              duration: const Duration(milliseconds: 180),
-              style: AppTextStyles.navLabel.copyWith(
-                color: active ? AppColors.navActive : AppColors.navInactive,
-                fontWeight:
-                    active ? FontWeight.w700 : FontWeight.w400,
+            Text(
+              label,
+              style: TextStyle(
+                fontFamily: 'Cairo',
+                fontSize: 11.5,
+                fontWeight: active ? FontWeight.w800 : FontWeight.w600,
+                color: active
+                    ? const Color(0xFF02658B)
+                    : const Color(0xFF334155),
               ),
-              child: Text(item.label),
             ),
           ],
         ),
@@ -186,46 +278,7 @@ class _MainNavigationState extends State<MainNavigation> {
   }
 }
 
-// ─── Custom home+search icon for FAB ─────────────────────────────────────────
-class _HomeSearchIcon extends StatelessWidget {
-  final bool active;
-  const _HomeSearchIcon({super.key, required this.active});
-
-  @override
-  Widget build(BuildContext context) {
-    return Stack(
-      alignment: Alignment.center,
-      children: [
-        const Icon(Icons.home_rounded, color: Colors.white, size: 28),
-        Positioned(
-          right: 0,
-          bottom: 0,
-          child: Container(
-            width: 18,
-            height: 18,
-            decoration: BoxDecoration(
-              color: Colors.white.withAlpha(50),
-              shape: BoxShape.circle,
-            ),
-            child: const Icon(Icons.search_rounded,
-                color: Colors.white, size: 12),
-          ),
-        ),
-      ],
-    );
-  }
-}
-
-// ─── Data model ───────────────────────────────────────────────────────────────
-class _NavItem {
-  final IconData icon;
-  final IconData activeIcon;
-  final String label;
-  final int screenIdx;
-  const _NavItem(this.icon, this.activeIcon, this.label, this.screenIdx);
-}
-
-// ─── Placeholder screens ──────────────────────────────────────────────────────
+// ─── Placeholder screen ─────────────────────────────────────────────────────
 class _Placeholder extends StatelessWidget {
   final String label;
   final IconData icon;
@@ -242,8 +295,7 @@ class _Placeholder extends StatelessWidget {
             const SizedBox(height: 12),
             Text(
               label,
-              style: AppTextStyles.h2
-                  .copyWith(color: AppColors.textDisabled),
+              style: AppTextStyles.h2.copyWith(color: AppColors.textDisabled),
             ),
           ],
         ),

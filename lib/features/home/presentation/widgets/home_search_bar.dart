@@ -25,21 +25,22 @@ class HomeSearchBar extends StatelessWidget {
           ),
           padding: const EdgeInsets.symmetric(horizontal: 16),
           child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.start, // Right-aligned in RTL
             children: [
+              const Icon(
+                Icons.search_rounded,
+                color: Color(0xFF9E9E9E),
+                size: 22,
+              ),
+              const SizedBox(width: 10),
               Text(
                 AppStrings.searchHint, // 'كيف يمكننا مساعدتك'
                 style: AppTextStyles.body2.copyWith(
                   color: const Color(0xFF9E9E9E),
                   fontSize: 14,
                   fontWeight: FontWeight.w400,
+                  fontFamily: 'Cairo',
                 ),
-              ),
-              const SizedBox(width: 8),
-              const Icon(
-                Icons.search_rounded,
-                color: Color(0xFF9E9E9E),
-                size: 22,
               ),
             ],
           ),
