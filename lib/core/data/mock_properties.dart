@@ -1,0 +1,160 @@
+import '../constants/app_models.dart';
+import '../constants/app_assets.dart';
+
+class MockProperties {
+  MockProperties._();
+
+  static final List<PropertyModel> featuredProperties = [
+    const PropertyModel(
+      id: '1',
+      title: 'شقة سكنية للبيع تشطيب سوبر ...',
+      location: 'الشيخ زايد، الجيزة',
+      price: 4000000,
+      bedrooms: 10,
+      bathrooms: 5,
+      area: 8725,
+      imageUrl: AppAssets.img1,
+      isFeatured: true,
+      type: 'شقة',
+      transactionType: 'للبيع',
+      agentName: 'بواسطة',
+      daysAgo: 4,
+    ),
+    const PropertyModel(
+      id: '2',
+      title: 'شقة سكنية للإيجار تشطيب سوبر ...',
+      location: 'الشيخ زايد، الجيزة',
+      price: 4000,
+      bedrooms: 10,
+      bathrooms: 5,
+      area: 8725,
+      imageUrl: AppAssets.img2,
+      isFeatured: true,
+      isFavorite: false,
+      type: 'شقة',
+      transactionType: 'للإيجار',
+      agentName: 'بواسطة',
+      daysAgo: 4,
+    ),
+    const PropertyModel(
+      id: '3',
+      title: 'فيلا مستقلة بالشيخ زايد ...',
+      location: 'الشيخ زايد، الجيزة',
+      price: 12500000,
+      bedrooms: 5,
+      bathrooms: 4,
+      area: 450,
+      imageUrl: AppAssets.img3,
+      isFeatured: true,
+      type: 'فيلا',
+      transactionType: 'للبيع',
+      agentName: 'بواسطة',
+      daysAgo: 4,
+    ),
+  ];
+
+  static final List<PropertyModel> latestApartments = [
+    const PropertyModel(
+      id: 'a1',
+      title: 'شقة سكنية للبيع تشطيب سوبر',
+      location: 'الشيخ زايد، الجيزة',
+      price: 4000000,
+      bedrooms: 5,
+      bathrooms: 3,
+      area: 180,
+      imageUrl: AppAssets.img1,
+      type: 'شقة',
+      agentName: 'وكالة الأهرام',
+      daysAgo: 4,
+    ),
+    const PropertyModel(
+      id: 'a2',
+      title: 'شقة للبيع بكمبوند بيفرلي هيلز',
+      location: 'الشيخ زايد، الجيزة',
+      price: 4800000,
+      bedrooms: 4,
+      bathrooms: 3,
+      area: 210,
+      imageUrl: AppAssets.img2,
+      type: 'شقة',
+      agentName: 'وكالة النور',
+      daysAgo: 5,
+    ),
+    const PropertyModel(
+      id: 'a3',
+      title: 'شقة فاخرة بالمهندسين',
+      location: 'المهندسين، الجيزة',
+      price: 3400000,
+      bedrooms: 3,
+      bathrooms: 2,
+      area: 155,
+      imageUrl: AppAssets.img5,
+      type: 'شقة',
+      agentName: 'وكالة القاهرة',
+      daysAgo: 6,
+    ),
+  ];
+
+  static final List<PropertyModel> latestVillas = [
+    const PropertyModel(
+      id: 'v1',
+      title: 'فيلا مستقلة بالشيخ زايد تشطيب سوبر',
+      location: 'الشيخ زايد، الجيزة',
+      price: 11500000,
+      bedrooms: 5,
+      bathrooms: 4,
+      area: 450,
+      imageUrl: AppAssets.img2,
+      isFeatured: true,
+      type: 'فيلا',
+      agentName: 'تطوير مصر',
+      daysAgo: 5,
+    ),
+    const PropertyModel(
+      id: 'v2',
+      title: 'فيلا بالرحاب',
+      location: 'الرحاب، القاهرة الجديدة',
+      price: 8900000,
+      bedrooms: 5,
+      bathrooms: 4,
+      area: 500,
+      imageUrl: AppAssets.img4,
+      type: 'فيلا',
+      agentName: 'مدينة نصر للإسكان',
+      daysAgo: 8,
+    ),
+  ];
+
+  static final List<PropertyModel> latestDuplexes = [
+    const PropertyModel(
+      id: 'd1',
+      title: 'دوبلكس التجمع الخامس',
+      location: 'التجمع الخامس، القاهرة',
+      price: 4500000,
+      bedrooms: 4,
+      bathrooms: 3,
+      area: 280,
+      imageUrl: AppAssets.img3,
+      isFeatured: true,
+      type: 'دوبلكس',
+      agentName: 'وكالة',
+      daysAgo: 4,
+    ),
+  ];
+
+  static final List<PropertyModel> latestChalets = [
+    const PropertyModel(
+      id: 'c1',
+      title: 'شاليه بالساحل الشمالي',
+      location: 'الساحل الشمالي، مطروح',
+      price: 2500000,
+      bedrooms: 3,
+      bathrooms: 2,
+      area: 130,
+      imageUrl: AppAssets.img5,
+      type: 'شاليه',
+      agentName: 'إعمار مصر',
+      daysAgo: 2,
+    ),
+  ];
+}
